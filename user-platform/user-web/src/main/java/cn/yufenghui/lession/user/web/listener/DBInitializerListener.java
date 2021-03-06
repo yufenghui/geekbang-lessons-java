@@ -1,5 +1,6 @@
 package cn.yufenghui.lession.user.web.listener;
 
+import cn.yufenghui.lession.user.context.ComponentContext;
 import cn.yufenghui.lession.user.db.DBConnectionManager;
 
 import javax.servlet.ServletContextEvent;
@@ -12,7 +13,7 @@ import java.sql.Statement;
  * @date 2021/3/1 13:55
  * @since
  */
-public class DBConnectionInitializerListener implements ServletContextListener {
+public class DBInitializerListener implements ServletContextListener {
 
     public static final String DROP_USERS_TABLE_DDL_SQL = "DROP TABLE users";
 
@@ -31,13 +32,12 @@ public class DBConnectionInitializerListener implements ServletContextListener {
             "('D','******','d@gmail.com','4') , " +
             "('E','******','e@gmail.com','5')";
 
-    private String jdbcURL = "jdbc:derby:/db/user-platform;create=true";
-    private DBConnectionManager dbConnectionManager = new DBConnectionManager("jdbc", jdbcURL);
-
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         try {
+            DBConnectionManager dbConnectionManager =
+                    ComponentContext.getInstance().getComponent("bean/DBConnectionManager");
             Connection connection = dbConnectionManager.getConnection();
             Statement statement = connection.createStatement();
             try {
@@ -58,6 +58,8 @@ public class DBConnectionInitializerListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         try {
+            DBConnectionManager dbConnectionManager =
+                    ComponentContext.getInstance().getComponent("bean/DBConnectionManager");
             Connection connection = dbConnectionManager.getConnection();
             Statement statement = connection.createStatement();
             try {

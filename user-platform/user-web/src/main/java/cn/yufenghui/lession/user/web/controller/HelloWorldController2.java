@@ -1,6 +1,5 @@
 package cn.yufenghui.lession.user.web.controller;
 
-import cn.yufenghui.lession.user.db.DBConnectionManager;
 import cn.yufenghui.lession.user.repository.DatabaseUserRepository;
 import cn.yufenghui.lession.user.repository.UserRepository;
 import cn.yufenghui.lession.web.mvc.controller.RestController;
@@ -19,10 +18,7 @@ import javax.ws.rs.Path;
 @Path("/hello")
 public class HelloWorldController2 implements RestController {
 
-    private String jdbcURL = "jdbc:derby:/db/user-platform;create=true";
-    private DBConnectionManager dbConnectionManager = new DBConnectionManager("jdbc", jdbcURL);
-    private UserRepository userRepository = new DatabaseUserRepository(dbConnectionManager);
-
+    private UserRepository userRepository = new DatabaseUserRepository();
 
     @GET
     @POST

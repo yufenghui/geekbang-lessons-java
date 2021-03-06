@@ -1,5 +1,6 @@
 package cn.yufenghui.lession.user.repository;
 
+import cn.yufenghui.lession.user.context.ComponentContext;
 import cn.yufenghui.lession.user.db.DBConnectionManager;
 import cn.yufenghui.lession.user.domain.User;
 import org.junit.After;
@@ -17,11 +18,10 @@ import java.util.Collection;
  */
 public class UserRepositoryTest {
 
-    private String jdbcURL = "jdbc:derby:/db/user-platform;create=true";
+    private DBConnectionManager dbConnectionManager =
+            ComponentContext.getInstance().getComponent("bean/DBConnectionManager");
 
-    private DBConnectionManager dbConnectionManager = new DBConnectionManager("jdbc", jdbcURL);
-
-    private UserRepository userRepository = new DatabaseUserRepository(dbConnectionManager);
+    private UserRepository userRepository = new DatabaseUserRepository();
 
     public static final String DROP_USERS_TABLE_DDL_SQL = "DROP TABLE users";
 

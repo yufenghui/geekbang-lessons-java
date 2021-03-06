@@ -1,6 +1,5 @@
 package cn.yufenghui.lession.user.repository;
 
-import cn.yufenghui.lession.user.db.DBConnectionManager;
 import cn.yufenghui.lession.user.domain.User;
 
 import java.util.ArrayList;
@@ -16,16 +15,6 @@ import java.util.logging.Logger;
 public class DatabaseUserRepository extends BaseRepository implements UserRepository {
 
     private static Logger logger = Logger.getLogger(DatabaseUserRepository.class.getName());
-
-    public static final String INSERT_USER_DML_SQL =
-            "INSERT INTO users(name,password,email,phoneNumber) VALUES " +
-                    "(?,?,?,?)";
-
-    public static final String QUERY_ALL_USERS_DML_SQL = "SELECT id,name,password,email,phoneNumber FROM users";
-
-    public DatabaseUserRepository(DBConnectionManager dbConnectionManager) {
-        super(dbConnectionManager);
-    }
 
     @Override
     public boolean save(User user) {

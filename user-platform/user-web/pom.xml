@@ -54,7 +54,15 @@
                 <version>2.2</version>
                 <configuration>
                     <path>/</path>
+                    <enableNaming>true</enableNaming>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.derby</groupId>
+                        <artifactId>derby</artifactId>
+                        <version>${derby.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
