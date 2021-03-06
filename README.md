@@ -21,7 +21,7 @@
 
 > UserRepositoryTest
 
-### 说明
+### V1 说明
 
 > * JNDI数据源在maven tomcat插件下配置不成功，放弃使用。
 > * 在设计中，初始化`DBConnectionManager`的时候，可以指定数据源类型，jdbc 或者 jndi
@@ -31,4 +31,20 @@ public DBConnectionManager(String type, String connStr){
     this.type = type;
     this.connStr = connStr;
 }
+```
+
+### V2 说明
+
+> * 在设计中，采用`ComponentContext`方式，以Bean的形式获取`DBConnectionManager`
+> * 在`ComponentContextInitializerListener`中初始化`ComponentContext`
+> * 在`DBInitializerListener`初始化数据，供`HelloController`测试使用
+> * 通过dbType设置数据源类型
+
+```xml
+<!-- bean -->
+<Resource name="bean/DBConnectionManager" auth="Container"
+          type="cn.yufenghui.lession.user.db.DBConnectionManager"
+          factory="org.apache.naming.factory.BeanFactory"
+          dbType="jndi"
+          />
 ```
