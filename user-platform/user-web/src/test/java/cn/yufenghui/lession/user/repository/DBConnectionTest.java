@@ -51,7 +51,7 @@ public class DBConnectionTest {
         Statement statement = null;
 
         try {
-            String jdbcURL = "jdbc:derby:/db/user-platform;create=true";
+            String jdbcURL = "jdbc:derby:db/user-platform;create=true";
             connection = DriverManager.getConnection(jdbcURL);
 
             statement = connection.createStatement();

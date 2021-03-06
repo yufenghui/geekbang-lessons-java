@@ -22,6 +22,7 @@ logs/
 .flattened-pom.xml
 derby.log
 .extract
+user-platform/user-web/db
 
 # eclipse
 *.pydevproject

@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class DBConnectionManager {
 
     private String dbType = "jndi";
-    private String jdbcUrl = "jdbc:derby:~/db/user-platform;create=true";
+    private String jdbcUrl = "jdbc:derby:db/user-platform;create=true";
     private String jndiName = "jdbc/UserPlatformDB";
 
     private Connection connection;
