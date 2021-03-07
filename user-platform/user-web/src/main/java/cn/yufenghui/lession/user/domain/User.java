@@ -3,13 +3,24 @@ package cn.yufenghui.lession.user.domain;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import static javax.persistence.GenerationType.AUTO;
+
 /**
  * @author Yu Fenghui
  * @date 2021/3/1 12:25
  * @since
  */
+@Table(name = "users")
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = AUTO)
     private Long id;
 
     private String name;

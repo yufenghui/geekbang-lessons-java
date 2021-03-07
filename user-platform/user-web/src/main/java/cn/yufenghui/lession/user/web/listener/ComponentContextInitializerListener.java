@@ -1,6 +1,6 @@
 package cn.yufenghui.lession.user.web.listener;
 
-import cn.yufenghui.lession.user.context.ComponentContext;
+import cn.yufenghui.lession.context.ComponentContext;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -22,12 +22,12 @@ public class ComponentContextInitializerListener implements ServletContextListen
         componentContext.init(servletContext);
 
         System.out.println("初始化ComponentContext成功。");
+
+        ComponentContext.getInstance().getComponent("bean/EntityManager");
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        ComponentContext componentContext = ComponentContext.getInstance();
-        componentContext.destroy();
     }
 
 }

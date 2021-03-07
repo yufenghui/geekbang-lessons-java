@@ -2,6 +2,8 @@ package cn.yufenghui.lession.user.service;
 
 import cn.yufenghui.lession.user.domain.User;
 
+import java.util.Collection;
+
 /**
  * 用户服务
  *
@@ -38,5 +40,7 @@ public interface UserService {
     User queryUserById(Long id);
 
     User queryUserByNameAndPassword(String name, String password);
+
+    Collection<User> getAll();
 
 }

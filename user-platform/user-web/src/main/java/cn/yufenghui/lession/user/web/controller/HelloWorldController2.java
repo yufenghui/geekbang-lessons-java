@@ -1,7 +1,7 @@
 package cn.yufenghui.lession.user.web.controller;
 
-import cn.yufenghui.lession.user.repository.DatabaseUserRepository;
-import cn.yufenghui.lession.user.repository.UserRepository;
+import cn.yufenghui.lession.context.ComponentContext;
+import cn.yufenghui.lession.user.service.UserService;
 import cn.yufenghui.lession.web.mvc.controller.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,14 +18,14 @@ import javax.ws.rs.Path;
 @Path("/hello")
 public class HelloWorldController2 implements RestController {
 
-    private UserRepository userRepository = new DatabaseUserRepository();
+    private UserService userService = ComponentContext.getInstance().getComponent("bean/UserService");
 
     @GET
     @POST
     @Path("/world2")
     @Override
     public Object execute(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-        return userRepository.getByNameAndPassword("A", "******");
+        return userService.getAll();
     }
 
 }

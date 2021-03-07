@@ -23,6 +23,7 @@ logs/
 derby.log
 .extract
 user-platform/user-web/db
+db/user-platform/
 
 # eclipse
 *.pydevproject

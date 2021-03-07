@@ -1,7 +1,7 @@
 package cn.yufenghui.lession.user.repository;
 
+import cn.yufenghui.lession.context.ComponentContext;
 import cn.yufenghui.lession.function.ThrowableFunction;
-import cn.yufenghui.lession.user.context.ComponentContext;
 import cn.yufenghui.lession.user.db.DBConnectionManager;
 import org.apache.commons.lang.ClassUtils;
 

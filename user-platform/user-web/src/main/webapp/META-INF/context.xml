@@ -17,4 +17,15 @@
               dbType="jndi"
               />
 
+    <Resource name="bean/EntityManager" auth="Container"
+              type="javax.persistence.EntityManager"
+              factory="cn.yufenghui.lession.factory.MyEntityManagerFactory"
+    />
+
+    <Resource name="bean/UserService" auth="Container"
+              type="cn.yufenghui.lession.user.service.UserServiceImpl"
+              factory="org.apache.naming.factory.BeanFactory"
+    />
+
+
 </Context>

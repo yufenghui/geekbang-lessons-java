@@ -1,7 +1,7 @@
 package cn.yufenghui.lession.user.db;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
+import cn.yufenghui.lession.context.ComponentContext;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -59,9 +59,7 @@ public class DBConnectionManager {
 
     private Connection getJNDIConnection(String jndiName) {
         try {
-            Context context = new InitialContext();
-            Context envContext = (Context) context.lookup("java:comp/env");
-            DataSource pool = (DataSource) envContext.lookup(jndiName);
+            DataSource pool = ComponentContext.getInstance().getComponent(jndiName);
             this.connection = pool.getConnection();
 
             System.out.println("获取JNDI数据源。");

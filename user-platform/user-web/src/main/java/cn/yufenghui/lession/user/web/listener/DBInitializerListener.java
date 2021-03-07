@@ -1,6 +1,6 @@
 package cn.yufenghui.lession.user.web.listener;
 
-import cn.yufenghui.lession.user.context.ComponentContext;
+import cn.yufenghui.lession.context.ComponentContext;
 import cn.yufenghui.lession.user.db.DBConnectionManager;
 
 import javax.servlet.ServletContextEvent;
