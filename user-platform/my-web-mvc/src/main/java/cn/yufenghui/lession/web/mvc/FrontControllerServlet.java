@@ -141,6 +141,9 @@ public class FrontControllerServlet extends HttpServlet {
                 RestController restController = RestController.class.cast(controller);
                 Object returnObj = restController.execute(request, response);
 
+                response.setCharacterEncoding("UTF-8");
+                response.setContentType("application/json; charset=utf-8");
+
                 ServletOutputStream outputStream = response.getOutputStream();
                 IOUtils.write(JSON.toJSONBytes(returnObj), outputStream);
             }
