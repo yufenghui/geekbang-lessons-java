@@ -1,2 +1,3 @@
 cn.yufenghui.lession.user.web.controller.HelloWorldController
-cn.yufenghui.lession.user.web.controller.HelloWorldController2
+cn.yufenghui.lession.user.web.controller.HelloWorldRestController
+cn.yufenghui.lession.user.web.controller.UserRegisterController

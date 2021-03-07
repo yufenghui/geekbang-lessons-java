@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.util.Collection;
 import java.util.List;
@@ -33,9 +34,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean register(User user) {
 
-        entityManager.persist(user);
+        EntityTransaction transaction = entityManager.getTransaction();
 
-        if(user.getId() != null) {
+        try {
+            transaction.begin();
+            entityManager.persist(user);
+
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+        }
+
+        if (user.getId() != null) {
             return true;
         } else {
             return false;

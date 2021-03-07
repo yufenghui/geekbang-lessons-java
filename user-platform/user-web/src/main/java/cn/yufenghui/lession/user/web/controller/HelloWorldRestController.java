@@ -16,7 +16,7 @@ import javax.ws.rs.Path;
  * @since
  */
 @Path("/hello")
-public class HelloWorldController2 implements RestController {
+public class HelloWorldRestController implements RestController {
 
     private UserService userService = ComponentContext.getInstance().getComponent("bean/UserService");
 
