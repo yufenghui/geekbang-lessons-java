@@ -20,8 +20,6 @@ public class ComponentContextInitializerListener implements ServletContextListen
         this.servletContext  = sce.getServletContext();
         ComponentContext componentContext = new ComponentContext();
         componentContext.init(servletContext);
-
-        ComponentContext.getInstance().getComponent("bean/EntityManager");
     }
 
     @Override

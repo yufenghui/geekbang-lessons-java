@@ -49,7 +49,6 @@ public class DBConnectionManager {
         try {
             this.connection = DriverManager.getConnection(jdbcURL);
 
-            System.out.println("获取JDBC数据源。");
         } catch (SQLException t) {
             System.out.println("创建数据库连接失败。" + t.getMessage());
             t.printStackTrace();
@@ -62,7 +61,6 @@ public class DBConnectionManager {
             DataSource pool = ComponentContext.getInstance().getComponent(jndiName);
             this.connection = pool.getConnection();
 
-            System.out.println("获取JNDI数据源。");
         } catch (Exception t) {
             System.out.println("创建数据库连接失败。" + t.getMessage());
             t.printStackTrace();
