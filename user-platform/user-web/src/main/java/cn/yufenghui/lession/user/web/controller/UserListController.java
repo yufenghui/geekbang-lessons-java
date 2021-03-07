@@ -15,14 +15,14 @@ import javax.ws.rs.Path;
  * @date 2021/3/1 13:41
  * @since
  */
-@Path("/hello")
-public class HelloWorldRestController implements RestController {
+@Path("/user")
+public class UserListController implements RestController {
 
     private UserService userService = ComponentContext.getInstance().getComponent("bean/UserService");
 
     @GET
     @POST
-    @Path("/world2")
+    @Path("/list")
     @Override
     public Object execute(HttpServletRequest request, HttpServletResponse response) throws Throwable {
         return userService.getAll();

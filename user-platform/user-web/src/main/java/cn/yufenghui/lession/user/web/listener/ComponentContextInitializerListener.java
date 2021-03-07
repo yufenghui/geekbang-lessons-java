@@ -21,8 +21,6 @@ public class ComponentContextInitializerListener implements ServletContextListen
         ComponentContext componentContext = new ComponentContext();
         componentContext.init(servletContext);
 
-        System.out.println("初始化ComponentContext成功。");
-
         ComponentContext.getInstance().getComponent("bean/EntityManager");
     }
 

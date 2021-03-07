@@ -65,6 +65,9 @@ public class ComponentContext {
         List<String> componentNames = listAllComponentNames();
         // 通过依赖查找，实例化对象（ Tomcat BeanFactory setter 方法的执行，仅支持简单类型）
         componentNames.forEach(name -> componentsMap.put(name, lookupComponent(name)));
+
+        System.out.println("系统中注册的组件列表: ");
+        System.out.println(componentsMap.keySet());
     }
 
     /**

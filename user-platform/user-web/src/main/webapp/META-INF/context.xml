@@ -22,6 +22,11 @@
               factory="cn.yufenghui.lession.factory.MyEntityManagerFactory"
     />
 
+    <Resource name="bean/validator" auth="Container"
+              type="javax.validation.Validator"
+              factory="cn.yufenghui.lession.factory.MyValidatorFactory"
+    />
+
     <Resource name="bean/UserService" auth="Container"
               type="cn.yufenghui.lession.user.service.UserServiceImpl"
               factory="org.apache.naming.factory.BeanFactory"

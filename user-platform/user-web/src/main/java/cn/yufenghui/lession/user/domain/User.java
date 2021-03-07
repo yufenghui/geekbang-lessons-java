@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 
 import static javax.persistence.GenerationType.AUTO;
 
@@ -25,6 +26,7 @@ public class User {
 
     private String name;
 
+    @Min(6)
     private String password;
 
     private String email;
