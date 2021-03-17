@@ -32,6 +32,8 @@
         <hibernate.version>5.2.18.Final</hibernate.version>
         <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
 
+        <jolokia.version>1.6.2</jolokia.version>
+
     </properties>
 
     <!-- Artifacts 依赖版本管理 -->
@@ -110,6 +112,17 @@
                 <version>${hibernate.validator.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.jolokia</groupId>
+                <artifactId>jolokia-core</artifactId>
+                <version>${jolokia.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jolokia</groupId>
+                <artifactId>jolokia-jvm</artifactId>
+                <version>${jolokia.version}</version>
+            </dependency>
 
         </dependencies>
 

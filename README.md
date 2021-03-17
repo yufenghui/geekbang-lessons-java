@@ -12,6 +12,20 @@ mvn tomcat7:run
 
 ------
 
+## V4
+
+### 接口
+- jolokia
+
+> http://localhost:8080/jolokia/read/java.lang:type=Memory/HeapMemoryUsage
+
+- User
+
+> http://localhost:8080/jolokia/read/cn.yufenghui.lesson.user.management:type=User
+
+### 说明
+> * 在`MBeanServerListener` 中初始化自定义的MBean
+
 
 ## V3
 
