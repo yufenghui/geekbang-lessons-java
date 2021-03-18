@@ -23,8 +23,23 @@ mvn tomcat7:run
 
 > http://localhost:8080/jolokia/read/cn.yufenghui.lesson.user.management:type=User
 
+- Config
+
+> http://localhost:8080/jolokia/read/cn.yufenghui.lesson.config:type=Config
+
+> http://localhost:8080/config/getConfig?name=application.name
+
+> http://localhost:8080/config/getConfig?name=user.age
+
+> http://localhost:8080/config/getConfig?name=Path
+
 ### 说明
-> * 在`MBeanServerListener` 中初始化自定义的MBean
+> * Jolokia 在`MBeanServerListener` 中初始化自定义的MBean
+> * MicroProfile Config 在 `cn.yufenghui.lession.configuration.microprofile.config` 包下
+> * 定义了 `OsEnvConfigSource`, `JavaSystemConfigSource`, `LocalFileConfigSource` 三个 `ConfigSource` 实现
+> * 将 `ExampleConfigProviderResolver` 注册为JNDI资源，在`ConfigController` 中使用
+> * 本地配置文件在 `resources/config.properties`，使用UTF-8编码
+> * 增加MicroProfile Config MBean，并通过Jolokia代理访问
 
 
 ## V3

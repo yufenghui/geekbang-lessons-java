@@ -1,3 +1,4 @@
 cn.yufenghui.lession.user.web.controller.HelloWorldController
 cn.yufenghui.lession.user.web.controller.UserListController
 cn.yufenghui.lession.user.web.controller.UserRegisterController
+cn.yufenghui.lession.user.web.controller.ConfigController

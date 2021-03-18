@@ -32,5 +32,10 @@
               factory="org.apache.naming.factory.BeanFactory"
     />
 
+    <Resource name="bean/ConfigProvider" auth="Container"
+              type="cn.yufenghui.lession.configuration.microprofile.config.ExampleConfigProviderResolver"
+              factory="org.apache.naming.factory.BeanFactory"
+    />
+
 
 </Context>
