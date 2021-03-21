@@ -133,21 +133,26 @@ public class ComponentContext {
 
     private void processDestroy(Object component) {
 
-        Arrays.stream(component.getClass().getMethods())
-                .filter(method -> {
-                    int parameterCount = method.getParameterCount();
-                    return !Modifier.isStatic(method.getModifiers())
-                            && parameterCount == 0
-                            && method.isAnnotationPresent(PreDestroy.class);
-                }).forEach(method -> {
+        // TODO: ShutdownHook  此处之前的实现为直接调用，天真了。
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 
-            try {
-                method.invoke(component);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            Arrays.stream(component.getClass().getMethods())
+                    .filter(method -> {
+                        int parameterCount = method.getParameterCount();
+                        return !Modifier.isStatic(method.getModifiers())
+                                && parameterCount == 0
+                                && method.isAnnotationPresent(PreDestroy.class);
+                    }).forEach(method -> {
 
-        });
+                try {
+                    method.invoke(component);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+            });
+
+        }));
 
     }
 
