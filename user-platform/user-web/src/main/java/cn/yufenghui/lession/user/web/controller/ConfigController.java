@@ -1,6 +1,5 @@
 package cn.yufenghui.lession.user.web.controller;
 
-import cn.yufenghui.lession.context.ComponentContext;
 import cn.yufenghui.lession.web.mvc.controller.RestController;
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver;
 
@@ -17,7 +16,7 @@ import javax.ws.rs.Path;
 @Path("/config")
 public class ConfigController implements RestController {
 
-    private ConfigProviderResolver configProvider = ComponentContext.getInstance().getComponent("bean/ConfigProvider");
+    private ConfigProviderResolver configProvider = ConfigProviderResolver.instance();
 
     @GET
     @Path("/getConfig")

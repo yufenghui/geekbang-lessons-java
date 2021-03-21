@@ -1,6 +1,6 @@
 package cn.yufenghui.lession.user.web.listener;
 
-import cn.yufenghui.lession.configuration.microprofile.config.jmx.ExampleConfigManager;
+import cn.yufenghui.lession.configuration.microprofile.config.jmx.DefaultConfigManager;
 import cn.yufenghui.lession.user.domain.User;
 import cn.yufenghui.lession.user.management.UserManager;
 
@@ -29,7 +29,7 @@ public class MBeanServerListener implements ServletContextListener {
             mBeanServer.registerMBean(createUserMBean(user), userObjectName);
 
             ObjectName configObjectName = new ObjectName("cn.yufenghui.lesson.config:type=Config");
-            mBeanServer.registerMBean(new ExampleConfigManager(), configObjectName);
+            mBeanServer.registerMBean(new DefaultConfigManager(), configObjectName);
 
         } catch (Exception e) {
             System.out.println("启动MBeanServer失败: " + e.getMessage());

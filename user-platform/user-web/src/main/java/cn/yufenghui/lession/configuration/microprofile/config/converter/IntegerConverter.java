@@ -7,7 +7,7 @@ import org.eclipse.microprofile.config.spi.Converter;
  * @date 2021/3/18 10:04
  * @since
  */
-public class StringToIntegerConverter implements Converter<Integer> {
+public class IntegerConverter implements Converter<Integer> {
 
     @Override
     public Integer convert(String value) throws IllegalArgumentException, NullPointerException {

@@ -7,7 +7,7 @@ import java.util.Map;
  * @date 2021/3/18 10:56
  * @since
  */
-public interface ExampleConfigManagerMBean {
+public interface DefaultConfigManagerMBean {
 
     Map<String, Map<String, String>> getConfigSource();
 

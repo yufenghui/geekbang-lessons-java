@@ -1,6 +1,5 @@
 package cn.yufenghui.lession.configuration.microprofile.config.jmx;
 
-import cn.yufenghui.lession.context.ComponentContext;
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver;
 import org.eclipse.microprofile.config.spi.ConfigSource;
 
@@ -12,9 +11,9 @@ import java.util.Map;
  * @date 2021/3/18 10:56
  * @since
  */
-public class ExampleConfigManager implements ExampleConfigManagerMBean {
+public class DefaultConfigManager implements DefaultConfigManagerMBean {
 
-    private ConfigProviderResolver configProvider = ComponentContext.getInstance().getComponent("bean/ConfigProvider");
+    private ConfigProviderResolver configProvider = ConfigProviderResolver.instance();
 
     @Override
     public Map<String, String> getConfig() {

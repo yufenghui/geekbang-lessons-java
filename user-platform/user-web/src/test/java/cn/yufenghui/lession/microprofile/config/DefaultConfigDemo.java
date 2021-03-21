@@ -1,21 +1,18 @@
-package cn.yufenghui.lession.configuration.microprofile.config;
+package cn.yufenghui.lession.microprofile.config;
 
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver;
-
-import java.util.ServiceLoader;
 
 /**
  * @author Yu Fenghui
  * @date 2021/3/18 9:58
  * @since
  */
-public class ExampleConfigDemo {
+public class DefaultConfigDemo {
 
     public static void main(String[] args) {
 
-        ServiceLoader<ConfigProviderResolver> serviceLoader = ServiceLoader.load(ConfigProviderResolver.class);
-        ConfigProviderResolver configProviderResolver = serviceLoader.iterator().next();
+        ConfigProviderResolver configProviderResolver = ConfigProviderResolver.instance();
 
         if(configProviderResolver != null) {
 
@@ -27,7 +24,6 @@ public class ExampleConfigDemo {
             System.out.println(userAge);
 
         }
-
 
     }
 
