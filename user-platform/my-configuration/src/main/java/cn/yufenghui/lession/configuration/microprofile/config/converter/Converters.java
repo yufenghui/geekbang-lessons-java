@@ -57,7 +57,7 @@ public class Converters implements Iterable<Converter> {
         addConverter(converter, priority, converterType);
     }
 
-    private Class<?> resolveConverterType(Converter converter) {
+    public Class<?> resolveConverterType(Converter converter) {
         Class<?> converterType = null;
 
         for(Type superInterface : converter.getClass().getGenericInterfaces()) {
