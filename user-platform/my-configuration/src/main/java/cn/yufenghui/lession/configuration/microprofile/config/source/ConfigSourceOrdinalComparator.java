@@ -11,7 +11,6 @@ import java.util.Comparator;
  */
 public class ConfigSourceOrdinalComparator implements Comparator<ConfigSource> {
 
-
     public static final ConfigSourceOrdinalComparator INSTANCE = new ConfigSourceOrdinalComparator();
 
     @Override

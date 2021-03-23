@@ -1,44 +1,22 @@
 package cn.yufenghui.lession.configuration.microprofile.config.source;
 
-import org.eclipse.microprofile.config.spi.ConfigSource;
-
-import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author Yu Fenghui
  * @date 2021/3/18 11:12
  * @since
  */
-public class OsEnvConfigSource implements ConfigSource {
-
-    private final Map<String, String> properties = new LinkedHashMap<>();
+public class OsEnvConfigSource extends MapBasedConfigSource {
 
     public OsEnvConfigSource() {
         // OS 环境变量
-        Map<String, String> envProperties = System.getenv();
-        this.properties.putAll(envProperties);
+        super("ConfigSource[OS Env]", 300);
     }
 
     @Override
-    public Set<String> getPropertyNames() {
-        return properties.keySet();
-    }
-
-    @Override
-    public String getValue(String propertyName) {
-        return properties.get(propertyName);
-    }
-
-    @Override
-    public String getName() {
-        return "ConfigSource[OS Env]";
-    }
-
-    @Override
-    public int getOrdinal() {
-        return 300;
+    protected void loadConfigData(Map configData) throws Throwable {
+        configData.putAll(System.getenv());
     }
 
 }

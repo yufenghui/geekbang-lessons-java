@@ -22,13 +22,14 @@ public class Converters implements Iterable<Converter> {
 
     private ClassLoader classLoader;
 
+    private boolean addDefaultConverters = false;
     private boolean addDiscoveredConverters = false;
 
     public Converters(ClassLoader classLoader) {
         this.classLoader = classLoader;
 
-        addConverter(new StringConverter());
-        addConverter(new IntegerConverter());
+        // 初始化
+        addDiscoveredConverters();
     }
 
     public void setClassLoader(ClassLoader classLoader) {
