@@ -15,16 +15,25 @@ public class ServletContextConfigSource extends MapBasedConfigSource {
 
     private ServletContext servletContext;
 
+    private Map configData;
+
     public ServletContextConfigSource(ServletContext servletContext) {
         super("ConfigSource[ServletContext]", 500);
+        this.servletContext = servletContext;
+
+        loadServletContextData();
     }
 
     @Override
     protected void loadConfigData(Map configData) throws Throwable {
-        Enumeration<String> initParameterNames = servletContext.getInitParameterNames();
+        this.configData = configData;
+    }
+
+    private void loadServletContextData() {
+        Enumeration<String> initParameterNames = this.servletContext.getInitParameterNames();
         while (initParameterNames.hasMoreElements()) {
             String parameterName = initParameterNames.nextElement();
-            String parameterValue = servletContext.getInitParameter(parameterName);
+            String parameterValue = this.servletContext.getInitParameter(parameterName);
             configData.put(parameterName, parameterValue);
         }
     }

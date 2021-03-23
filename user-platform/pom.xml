@@ -16,6 +16,7 @@
         <module>my-web-mvc</module>
         <module>my-configuration</module>
         <module>user-web</module>
+        <module>my-dependency-injection</module>
     </modules>
 
     <properties>
