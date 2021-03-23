@@ -1,1 +1,2 @@
 cn.yufenghui.lession.configuration.microprofile.config.source.servlet.ServletConfigInitializer
+cn.yufenghui.lession.configuration.microprofile.config.listener.ConfigMBeanInitializer

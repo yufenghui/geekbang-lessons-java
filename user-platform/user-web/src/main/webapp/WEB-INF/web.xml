@@ -14,13 +14,13 @@
 <!--        <listener-class>cn.yufenghui.lession.context.listener.ComponentContextListener</listener-class>-->
 <!--    </listener>-->
 
-    <listener>
-        <listener-class>cn.yufenghui.lession.user.web.listener.DBInitializerListener</listener-class>
-    </listener>
+<!--    <listener>-->
+<!--        <listener-class>cn.yufenghui.lession.user.web.listener.DBInitializerListener</listener-class>-->
+<!--    </listener>-->
 
-    <listener>
-        <listener-class>cn.yufenghui.lession.user.web.listener.MBeanServerListener</listener-class>
-    </listener>
+<!--    <listener>-->
+<!--        <listener-class>cn.yufenghui.lession.configuration.microprofile.config.listener.ConfigMBeanListener</listener-class>-->
+<!--    </listener>-->
 
     <servlet>
         <servlet-name>jolokia-agent</servlet-name>
