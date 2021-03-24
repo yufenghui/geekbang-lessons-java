@@ -6,6 +6,9 @@ import cn.yufenghui.lession.web.mvc.controller.RestController;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.config.spi.ConfigProviderResolver;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +19,7 @@ import javax.ws.rs.Path;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.*;
 
 /**
@@ -35,6 +39,11 @@ public class FrontControllerServlet extends HttpServlet {
      */
     private Map<String, HandlerMethodInfo> handlerMethodInfoMapping = new HashMap<>();
 
+    private ServletContext servletContext;
+
+    private final ConfigProviderResolver configProviderResolver = ConfigProviderResolver.instance();
+
+
     /**
      * 初始化 Servlet
      *
@@ -43,6 +52,7 @@ public class FrontControllerServlet extends HttpServlet {
      */
     @Override
     public void init(ServletConfig config) throws ServletException {
+        this.servletContext = config.getServletContext();
         initHandlerMethods();
     }
 
@@ -70,8 +80,41 @@ public class FrontControllerServlet extends HttpServlet {
             }
 
             controllerMapping.put(requestPath, controller);
+
+            injectConfigProperty(controller);
         }
 
+    }
+
+    private void injectConfigProperty(Object component) {
+
+        Config config = configProviderResolver.getConfig(this.servletContext.getClassLoader());
+        if (config == null) {
+            return;
+        }
+
+        Arrays.stream(component.getClass().getDeclaredFields())
+                .filter(field -> {
+                    int mods = field.getModifiers();
+                    return !Modifier.isStatic(mods) && field.isAnnotationPresent(ConfigProperty.class);
+                }).forEach(field -> {
+            ConfigProperty configProperty = field.getAnnotation(ConfigProperty.class);
+            String propertyName = configProperty.name();
+            String defaultValue = configProperty.defaultValue();
+
+            Object value = config.getValue(propertyName, field.getType());
+            if(value == null) {
+                value = defaultValue;
+            }
+
+            field.setAccessible(true);
+            try {
+                field.set(component, value);
+            } catch (IllegalAccessException e) {
+                System.out.println("属性注入失败, " + field.getName());
+                e.printStackTrace();
+            }
+        });
     }
 
     /**

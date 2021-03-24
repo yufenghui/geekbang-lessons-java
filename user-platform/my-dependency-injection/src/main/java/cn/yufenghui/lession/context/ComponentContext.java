@@ -1,6 +1,9 @@
 package cn.yufenghui.lession.context;
 
 import cn.yufenghui.lession.function.ThrowableAction;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.config.spi.ConfigProviderResolver;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -28,6 +31,8 @@ public class ComponentContext {
     private ClassLoader classLoader;
 
     private Map<String, Object> componentsMap = new LinkedHashMap<>();
+
+    private static final ConfigProviderResolver configProviderResolver = ConfigProviderResolver.instance();
 
 
     public static ComponentContext getInstance() {
@@ -82,6 +87,8 @@ public class ComponentContext {
 
             injectComponents(component);
 
+            injectConfigProperty(component);
+
             processPostConstruct(component);
 
             processDestroy(component);
@@ -109,6 +116,37 @@ public class ComponentContext {
             }
         });
 
+    }
+
+    private void injectConfigProperty(Object component) {
+
+        Config config = configProviderResolver.getConfig(this.classLoader);
+        if (config == null) {
+            return;
+        }
+
+        Arrays.stream(component.getClass().getDeclaredFields())
+                .filter(field -> {
+                    int mods = field.getModifiers();
+                    return !Modifier.isStatic(mods) && field.isAnnotationPresent(ConfigProperty.class);
+                }).forEach(field -> {
+            ConfigProperty configProperty = field.getAnnotation(ConfigProperty.class);
+            String propertyName = configProperty.name();
+            String defaultValue = configProperty.defaultValue();
+
+            Object value = config.getValue(propertyName, field.getType());
+            if(value == null) {
+                value = defaultValue;
+            }
+
+            field.setAccessible(true);
+            try {
+                field.set(component, value);
+            } catch (IllegalAccessException e) {
+                System.out.println("属性注入失败, " + field.getName());
+                e.printStackTrace();
+            }
+        });
     }
 
     private void processPostConstruct(Object component) {

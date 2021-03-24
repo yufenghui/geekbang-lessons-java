@@ -1,6 +1,7 @@
-package cn.yufenghui.lession.user.service;
+package cn.yufenghui.lession.user.service.impl;
 
 import cn.yufenghui.lession.user.domain.User;
+import cn.yufenghui.lession.user.service.UserService;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

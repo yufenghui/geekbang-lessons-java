@@ -28,7 +28,12 @@
     />
 
     <Resource name="bean/UserService" auth="Container"
-              type="cn.yufenghui.lession.user.service.UserServiceImpl"
+              type="cn.yufenghui.lession.user.service.impl.UserServiceImpl"
+              factory="org.apache.naming.factory.BeanFactory"
+    />
+
+    <Resource name="bean/ConfigService" auth="Container"
+              type="cn.yufenghui.lession.user.service.impl.ConfigServiceImpl"
               factory="org.apache.naming.factory.BeanFactory"
     />
 

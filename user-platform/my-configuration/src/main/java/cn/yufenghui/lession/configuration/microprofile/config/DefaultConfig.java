@@ -2,6 +2,7 @@ package cn.yufenghui.lession.configuration.microprofile.config;
 
 import cn.yufenghui.lession.configuration.microprofile.config.converter.Converters;
 import cn.yufenghui.lession.configuration.microprofile.config.source.ConfigSources;
+import org.apache.commons.lang.ClassUtils;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigValue;
 import org.eclipse.microprofile.config.spi.ConfigSource;
@@ -34,7 +35,8 @@ public class DefaultConfig implements Config {
     public <T> T getValue(String propertyName, Class<T> propertyType) {
         String propertyValue = getPropertyValue(propertyName);
         // String 转换成目标类型
-        Converter<T> converter = doGetConverter(propertyType);
+        Class<T> wrapperClass = ClassUtils.primitiveToWrapper(propertyType);
+        Converter<T> converter = doGetConverter(wrapperClass);
         return converter == null ? null : converter.convert(propertyValue);
     }
 

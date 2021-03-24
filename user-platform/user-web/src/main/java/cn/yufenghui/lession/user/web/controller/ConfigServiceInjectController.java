@@ -1,7 +1,8 @@
 package cn.yufenghui.lession.user.web.controller;
 
+import cn.yufenghui.lession.context.ComponentContext;
+import cn.yufenghui.lession.user.service.ConfigService;
 import cn.yufenghui.lession.web.mvc.controller.RestController;
-import org.eclipse.microprofile.config.spi.ConfigProviderResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,21 +15,15 @@ import javax.ws.rs.Path;
  * @since
  */
 @Path("/config")
-public class ConfigController implements RestController {
+public class ConfigServiceInjectController implements RestController {
 
-    private static final ConfigProviderResolver configProvider = ConfigProviderResolver.instance();
-
+    private static final ConfigService configService = ComponentContext.getInstance().getComponent("bean/ConfigService");
 
     @GET
-    @Path("/getConfig")
+    @Path("/getServiceInjectConfig")
     @Override
     public Object execute(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-
-        String configName = request.getParameter("name");
-
-        String configValue = configProvider.getConfig().getValue(configName, String.class);
-
-        return configValue;
+        return configService.getInjectConfig();
     }
 
 }
