@@ -12,6 +12,20 @@ mvn tomcat7:run
 
 ------
 
+## V5
+### 说明
+* 拆分`my-configuration` `my-dependency-inject` 两个独立模块
+* `ServletContextListener` 无法通过 `ServletContainerInitializer#addListener`  的方式动态添加`Listener`
+* 通过 `ServletContainerInitializer` 直接初始化 `ComponentContext` `ServletContextConfigSource` 两个组件
+  
+### Config对象的获取问题
+* `ConfigProviderResolver` 为单例模式，在`user-web`中依赖`my-configuration`，直接通过 `ConfigProviderResolver.instance()` 实例化获取
+* 在`my-web-mvc` 中不能直接依赖 `my-configuration`，可依赖`microprofile-config-api`。
+  然后将`Config` 对象注册为JNDI组件使用，这样`my-web-mvc`就需要再去依赖`my-dependency-inject`。
+  如果想要减少依赖。可以将`Config`对象添加到`ServletContext`中，这样在`HttpServletRequest`中获取`ServletContext`，然后得到`Config`对象。
+* 个人认为`ThreadLocal`不是个好的方案，`Config`为全局单例对象，放入`ThreadLocal`中就成了线程级别单例对象。
+
+
 ## V4
 
 ### 接口
