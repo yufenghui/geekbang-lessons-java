@@ -13,10 +13,17 @@ mvn tomcat7:run
 ------
 
 ## V5
+### 接口
+- Config
+> http://localhost:8080/config/getInjectConfig
+
+> http://localhost:8080/config/getServiceInjectConfig
+
 ### 说明
 * 拆分`my-configuration` `my-dependency-inject` 两个独立模块
 * `ServletContextListener` 无法通过 `ServletContainerInitializer#addListener`  的方式动态添加`Listener`
 * 通过 `ServletContainerInitializer` 直接初始化 `ComponentContext` `ServletContextConfigSource` 两个组件
+* 在 `ComponentContext` 和 `FrontControllerServlet` 中通过 `@ConfigProperty`  注解注入配置属性
   
 ### Config对象的获取问题
 * `ConfigProviderResolver` 为单例模式，在`user-web`中依赖`my-configuration`，直接通过 `ConfigProviderResolver.instance()` 实例化获取
