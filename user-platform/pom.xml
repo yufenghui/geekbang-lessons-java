@@ -18,6 +18,7 @@
         <module>user-web</module>
         <module>my-dependency-injection</module>
         <module>my-rest-client</module>
+        <module>my-reactive-messaging</module>
     </modules>
 
     <properties>
