@@ -15,8 +15,8 @@ mvn tomcat7:run
 ## V6
 ### 执行方法
 
-> 测试方法在 `my-rest-client` 模块中测试包下的 `RestClientDemo` 中的 `testGet()`和`testPost()`
-> 增加 `reactive-stream` 示例，简单测试 `reactive` 模型，在 `publish` 中检测通道是否取消或完成，不再继续发消息
+* 测试方法在 `my-rest-client` 模块中测试包下的 `RestClientDemo` 中的 `testGet()`和`testPost()`
+* 增加 `reactive-stream` 示例，简单测试 `reactive` 模型，在 `publish` 中检测通道是否取消或完成，不再继续发消息
 
 ### 说明
 * 增加 `HttpPostInvocation` 请求处理，仅处理`application/json`格式的消息体
