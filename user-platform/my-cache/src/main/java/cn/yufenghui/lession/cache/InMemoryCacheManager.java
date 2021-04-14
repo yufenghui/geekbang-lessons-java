@@ -13,13 +13,13 @@ import java.util.Properties;
  */
 public class InMemoryCacheManager extends AbstractCacheManager {
 
-    protected InMemoryCacheManager(CachingProvider cachingProvider, URI uri, ClassLoader classLoader, Properties properties) {
+    public InMemoryCacheManager(CachingProvider cachingProvider, URI uri, ClassLoader classLoader, Properties properties) {
         super(cachingProvider, uri, classLoader, properties);
     }
 
     @Override
     protected <K, V, C extends Configuration<K, V>> Cache doCreateCache(String cacheName, C configuration) {
-        return null;
+        return new InMemoryCache<>(this, cacheName, configuration);
     }
 
 }

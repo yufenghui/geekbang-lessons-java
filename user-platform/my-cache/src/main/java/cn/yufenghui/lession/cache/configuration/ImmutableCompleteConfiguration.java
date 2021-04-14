@@ -4,8 +4,11 @@ import javax.cache.configuration.*;
 import javax.cache.expiry.ExpiryPolicy;
 import javax.cache.integration.CacheLoader;
 import javax.cache.integration.CacheWriter;
+import java.util.Objects;
 
 /**
+ * Immutable {@link CompleteConfiguration}
+ *
  * @author Yu Fenghui
  * @date 2021/4/12 13:57
  * @since
@@ -82,4 +85,22 @@ public class ImmutableCompleteConfiguration<K, V> implements CompleteConfigurati
     public boolean isStoreByValue() {
         return configuration.isStoreByValue();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || !(o instanceof Configuration)) {
+            return false;
+        }
+        Configuration<?, ?> that = (Configuration<?, ?>) o;
+        return Objects.equals(configuration, new ImmutableCompleteConfiguration(that).configuration);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(configuration);
+    }
+
 }
