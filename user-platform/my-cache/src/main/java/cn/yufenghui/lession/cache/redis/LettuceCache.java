@@ -4,43 +4,48 @@ import cn.yufenghui.lession.cache.AbstractCache;
 import cn.yufenghui.lession.cache.ExpirableEntry;
 import cn.yufenghui.lession.cache.serialization.ByteArraySerialization;
 import cn.yufenghui.lession.cache.serialization.Serialization;
-import redis.clients.jedis.Jedis;
+import io.lettuce.core.api.StatefulRedisConnection;
+import io.lettuce.core.api.sync.RedisCommands;
 
 import javax.cache.CacheException;
 import javax.cache.CacheManager;
 import javax.cache.configuration.Configuration;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
  * @author Yu Fenghui
- * @date 2021/4/14 10:47
+ * @date 2021/4/14 11:40
  * @since
  */
-public class JedisCache<K extends Serializable, V extends Serializable> extends AbstractCache<K, V> {
+public class LettuceCache<K extends Serializable, V extends Serializable> extends AbstractCache<K, V> {
 
-    private final Jedis jedis;
+    private final StatefulRedisConnection<byte[], byte[]> connection;
 
     private final Serialization serialization = new ByteArraySerialization();
 
+    private final RedisCommands<byte[], byte[]> command;
 
-    protected JedisCache(CacheManager cacheManager, String cacheName, Configuration<K, V> configuration, Jedis jedis) {
+    public LettuceCache(CacheManager cacheManager, String cacheName, Configuration<K, V> configuration, StatefulRedisConnection<byte[], byte[]> connection) {
         super(cacheManager, cacheName, configuration);
-        this.jedis = jedis;
+        this.connection = connection;
+        command = connection.sync();
     }
+
 
     @Override
     protected boolean containsEntry(K key) throws CacheException, ClassCastException {
         byte[] keyBytes = serialization.serialize(key);
-        return jedis.exists(keyBytes);
+        return command.exists(keyBytes) > 0;
     }
 
     @Override
     protected ExpirableEntry<K, V> getEntry(K key) throws CacheException, ClassCastException {
         byte[] keyBytes = serialization.serialize(key);
-        return getEntry(keyBytes);
+        return this.getEntry(keyBytes);
     }
 
     /**
@@ -52,7 +57,7 @@ public class JedisCache<K extends Serializable, V extends Serializable> extends 
      * @throws ClassCastException
      */
     private ExpirableEntry<K,V> getEntry(byte[] keyBytes) throws CacheException, ClassCastException {
-        byte[] valueBytes = jedis.get(keyBytes);
+        byte[] valueBytes = command.get(keyBytes);
         return ExpirableEntry.of(serialization.deserialize(keyBytes), serialization.deserialize(valueBytes));
     }
 
@@ -60,7 +65,7 @@ public class JedisCache<K extends Serializable, V extends Serializable> extends 
     protected void putEntry(ExpirableEntry<K, V> entry) throws CacheException, ClassCastException {
         byte[] keyBytes = serialization.serialize(entry.getKey());
         byte[] valueBytes = serialization.serialize(entry.getValue());
-        jedis.set(keyBytes, valueBytes);
+        command.set(keyBytes, valueBytes);
     }
 
     @Override
@@ -68,19 +73,19 @@ public class JedisCache<K extends Serializable, V extends Serializable> extends 
         byte[] keyBytes = serialization.serialize(key);
 
         ExpirableEntry<K, V> entry = getEntry(keyBytes);
-        jedis.del(keyBytes);
+        command.del(keyBytes);
 
         return entry;
     }
 
     @Override
     protected void clearEntries() throws CacheException {
-        jedis.flushDB();
+        command.flushdb();
     }
 
     @Override
     protected Set<K> keySet() {
-        Set<byte[]> keys = jedis.keys("*".getBytes(StandardCharsets.UTF_8));
+        List<byte[]> keys = command.keys("*".getBytes(StandardCharsets.UTF_8));
         return keys.stream()
                 .map(key -> (K) serialization.deserialize(key))
                 .collect(Collectors.toSet());
@@ -88,8 +93,7 @@ public class JedisCache<K extends Serializable, V extends Serializable> extends 
 
     @Override
     protected void doClose() {
-        jedis.close();
+        connection.close();
     }
-
 
 }

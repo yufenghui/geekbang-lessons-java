@@ -2,6 +2,9 @@ package cn.yufenghui.lession.cache;
 
 import cn.yufenghui.lession.cache.configuration.ConfigurationUtils;
 import cn.yufenghui.lession.cache.event.TestCacheEntryListener;
+import io.lettuce.core.RedisClient;
+import io.lettuce.core.api.StatefulRedisConnection;
+import io.lettuce.core.api.sync.RedisCommands;
 import org.junit.Test;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -14,8 +17,7 @@ import javax.cache.configuration.MutableConfiguration;
 import javax.cache.spi.CachingProvider;
 import java.net.URI;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 /**
  * {@link Caching} Test
@@ -76,6 +78,9 @@ public class CachingTest {
         Integer value1 = 1;
         cache.put(key, value1);
 
+        // contains
+        assertTrue(cache.containsKey(key));
+
         // update
         value1 = 2;
         cache.put(key, value1);
@@ -97,6 +102,20 @@ public class CachingTest {
         }
 /// ... when closing your application:
         pool.close();
+    }
+
+    @Test
+    public void testLettuce() {
+        RedisClient redisClient = RedisClient.create("redis://localhost:6379/0");
+        StatefulRedisConnection<String, String> connection = redisClient.connect();
+        RedisCommands<String, String> syncCommands = connection.sync();
+
+        syncCommands.set("key", "1");
+
+        System.out.println(syncCommands.get("key"));
+
+        connection.close();
+        redisClient.shutdown();
     }
 
 }
