@@ -12,6 +12,12 @@ mvn tomcat7:run
 
 ------
 
+## V7
+### 说明
+* 增加 `my-cache` 模块，实现JSR107 Cache API
+* 增加 `InMemeoryCache` `JedisCache` `LettuceCache` 
+* 增加 `serialization` 抽象API， 实现 `ByteArraySerialization`
+
 ## V6
 ### 执行方法
 
