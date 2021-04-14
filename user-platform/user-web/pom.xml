@@ -32,6 +32,12 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>cn.yufenghui</groupId>
+            <artifactId>my-cache</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- Servlet API -->
         <dependency>
             <groupId>javax.servlet</groupId>

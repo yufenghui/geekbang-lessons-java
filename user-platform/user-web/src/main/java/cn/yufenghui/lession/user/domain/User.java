@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
 
 import static javax.persistence.GenerationType.AUTO;
 
@@ -18,7 +19,9 @@ import static javax.persistence.GenerationType.AUTO;
  */
 @Table(name = "users")
 @Entity
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 7799904635738093598L;
 
     @Id
     @GeneratedValue(strategy = AUTO)

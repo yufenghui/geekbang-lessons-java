@@ -1,6 +1,8 @@
 cn.yufenghui.lession.user.web.controller.HelloWorldController
 cn.yufenghui.lession.user.web.controller.UserListController
 cn.yufenghui.lession.user.web.controller.UserRegisterController
+cn.yufenghui.lession.user.web.controller.UserLoginController
+cn.yufenghui.lession.user.web.controller.UserLogoutController
 cn.yufenghui.lession.user.web.controller.ConfigController
 cn.yufenghui.lession.user.web.controller.ConfigInjectController
 cn.yufenghui.lession.user.web.controller.ConfigServiceInjectController

@@ -10,17 +10,14 @@
         <param-value>MyServletContext</param-value>
     </context-param>
 
-<!--    <listener>-->
-<!--        <listener-class>cn.yufenghui.lession.context.listener.ComponentContextListener</listener-class>-->
-<!--    </listener>-->
 
-<!--    <listener>-->
-<!--        <listener-class>cn.yufenghui.lession.user.web.listener.DBInitializerListener</listener-class>-->
-<!--    </listener>-->
+    <listener>
+        <listener-class>cn.yufenghui.lession.user.web.listener.CacheableHttpSessionActivationListener</listener-class>
+    </listener>
 
-<!--    <listener>-->
-<!--        <listener-class>cn.yufenghui.lession.configuration.microprofile.config.listener.ConfigMBeanListener</listener-class>-->
-<!--    </listener>-->
+    <listener>
+        <listener-class>cn.yufenghui.lession.user.web.listener.CacheableHttpSessionAttributeListener</listener-class>
+    </listener>
 
     <servlet>
         <servlet-name>jolokia-agent</servlet-name>
@@ -69,6 +66,25 @@
         <url-pattern>*.js</url-pattern>
     </servlet-mapping>
 
+
+    <filter>
+        <filter-name>HttpSessionFilter</filter-name>
+        <filter-class>cn.yufenghui.lession.user.web.filter.HttpSessionFilter</filter-class>
+        <init-param>
+            <!-- Filter ÅäÖÃ = FilterConfig -->
+            <param-name>javax.cache.CacheManager.uri</param-name>
+            <param-value>redis://127.0.0.1:6379/</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>HttpSessionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
 
     <filter>
         <filter-name>CharsetEncodingFilter</filter-name>

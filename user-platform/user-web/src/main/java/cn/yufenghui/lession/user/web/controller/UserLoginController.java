@@ -1,0 +1,34 @@
+package cn.yufenghui.lession.user.web.controller;
+
+import cn.yufenghui.lession.user.domain.User;
+import cn.yufenghui.lession.web.mvc.controller.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+
+/**
+ * @author Yu Fenghui
+ * @date 2021/4/14 15:43
+ * @since
+ */
+@Path("/user")
+public class UserLoginController implements RestController {
+
+    @POST
+    @Path("/login")
+    @Override
+    public Object execute(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+
+        HttpSession session = request.getSession();
+        User user = new User();
+        user.setName("于冯辉");
+
+        session.setAttribute("user", user);
+
+        return "登录成功: " + user;
+    }
+
+}
