@@ -7,6 +7,8 @@ import javax.cache.event.EventType;
 import static java.util.Objects.requireNonNull;
 
 /**
+ * Generic {@link CacheEntryEvent}
+ *
  * @author Yu Fenghui
  * @date 2021/4/13 17:42
  * @since
@@ -39,27 +41,38 @@ public class GenericCacheEntryEvent<K, V> extends CacheEntryEvent<K, V> {
 
     @Override
     public V getValue() {
-        return null;
+        return this.value;
     }
 
     @Override
     public V getOldValue() {
-        return null;
+        return this.oldValue;
     }
 
     @Override
     public boolean isOldValueAvailable() {
-        return false;
+        return this.oldValue != null;
     }
 
     @Override
     public K getKey() {
-        return null;
+        return this.key;
     }
 
     @Override
     public <T> T unwrap(Class<T> clazz) {
-        return null;
+        return getSource().getCacheManager().unwrap(clazz);
+    }
+
+    @Override
+    public String toString() {
+        return "GenericCacheEntryEvent{" +
+                "key=" + getKey() +
+                ", oldValue=" + getOldValue() +
+                ", value=" + getValue() +
+                ", evenType=" + getEventType() +
+                ", source=" + getSource().getName() +
+                '}';
     }
 
     public static <K, V> CacheEntryEvent<K, V> createdEvent(Cache source, K key, V value) {
