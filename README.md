@@ -13,10 +13,20 @@ mvn tomcat7:run
 ------
 
 ## V7
+### 接口
+- 用户登录、登出
+> http://localhost:8080/user/login
+
+> http://localhost:8080/user/logout
+
+> http://localhost:8080/user/list
+
 ### 说明
 * 增加 `my-cache` 模块，实现JSR107 Cache API
 * 增加 `InMemeoryCache` `JedisCache` `LettuceCache` 
 * 增加 `serialization` 抽象API， 默认实现 `DefaultSerialization`，采用JDK原生序列化策略
+* 在 `HttpSessionFilter` 中判断用户是否登录，用户每次请求从 `Cache` 中获取用户 `Session` 属性，并设置到本地 `Session` 中，同步不同客户端修改的 `Session` 属性
+* 登录、登出方法中在 `Session` 中添加、删除 `user` 对象， 在 `CacheableHttpSessionAttributeListener` 中监听 `Session` 属性的变化，将属性保存在 `Cache` 中
 
 ## V6
 ### 执行方法
