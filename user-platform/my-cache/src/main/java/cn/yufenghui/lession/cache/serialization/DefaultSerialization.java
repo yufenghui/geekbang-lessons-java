@@ -8,7 +8,7 @@ import java.io.*;
  * @date 2021/4/14 13:46
  * @since
  */
-public class ByteArraySerialization implements Serialization {
+public class DefaultSerialization implements Serialization {
 
     @Override
     public <T> byte[] serialize(T obj) {

@@ -2,7 +2,7 @@ package cn.yufenghui.lession.cache.redis;
 
 import cn.yufenghui.lession.cache.AbstractCache;
 import cn.yufenghui.lession.cache.ExpirableEntry;
-import cn.yufenghui.lession.cache.serialization.ByteArraySerialization;
+import cn.yufenghui.lession.cache.serialization.DefaultSerialization;
 import cn.yufenghui.lession.cache.serialization.Serialization;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.sync.RedisCommands;
@@ -25,7 +25,7 @@ public class LettuceCache<K extends Serializable, V extends Serializable> extend
 
     private final StatefulRedisConnection<byte[], byte[]> connection;
 
-    private final Serialization serialization = new ByteArraySerialization();
+    private final Serialization serialization = new DefaultSerialization();
 
     private final RedisCommands<byte[], byte[]> command;
 

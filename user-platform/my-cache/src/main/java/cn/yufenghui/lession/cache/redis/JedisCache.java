@@ -2,7 +2,7 @@ package cn.yufenghui.lession.cache.redis;
 
 import cn.yufenghui.lession.cache.AbstractCache;
 import cn.yufenghui.lession.cache.ExpirableEntry;
-import cn.yufenghui.lession.cache.serialization.ByteArraySerialization;
+import cn.yufenghui.lession.cache.serialization.DefaultSerialization;
 import cn.yufenghui.lession.cache.serialization.Serialization;
 import redis.clients.jedis.Jedis;
 
@@ -23,7 +23,7 @@ public class JedisCache<K extends Serializable, V extends Serializable> extends 
 
     private final Jedis jedis;
 
-    private final Serialization serialization = new ByteArraySerialization();
+    private final Serialization serialization = new DefaultSerialization();
 
 
     protected JedisCache(CacheManager cacheManager, String cacheName, Configuration<K, V> configuration, Jedis jedis) {
