@@ -11,6 +11,24 @@ mvn tomcat7:run
 ```
 
 ------
+## V8
+### 接口
+- Gitee第三方登录
+> http://localhost:8080/gitee/login
+
+- 回调地址
+> http://localhost:8080/user/login
+
+- 登录页
+> http://localhost:8080/
+
+- 首页
+> http://localhost:8080/index
+
+### 说明
+* 在登录页增加`Gitee登录` 按钮，点击跳转到 `Gitee第三方登录`，然后redirect到`Gitee授权码登录`页面去申请授权
+* 授权成功后，重定向到本地回调地址，根据`授权码 code` 获取`access token`，然后获取用户信息放到`session` 中完成登录。
+* 拿到用户信息后需要自动创建本地用户，并与本地用户建立关联，完成用户创建。（未实现）
 
 ## V7
 ### 接口
