@@ -1,7 +1,7 @@
 package cn.yufenghui.lession.rest.client;
 
 import cn.yufenghui.lession.rest.core.DefaultResponse;
-import org.apache.commons.io.IOUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.client.Entity;
@@ -17,7 +17,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
@@ -72,8 +71,8 @@ public class HttpPostInvocation implements Invocation {
                 OutputStream outputStream = connection.getOutputStream();
 
                 if (mediaType == MediaType.APPLICATION_JSON_TYPE) {
-                    String jsonBody = (String) this.entity.getEntity();
-                    IOUtils.write(jsonBody, outputStream, Charset.forName("UTF-8"));
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    objectMapper.writeValue(outputStream, this.entity.getEntity());
                 }
             }
 

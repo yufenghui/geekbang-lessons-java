@@ -1,13 +1,11 @@
 package cn.yufenghui.lession.user.web.controller;
 
-import cn.yufenghui.lession.web.mvc.controller.PageController;
+import cn.yufenghui.lession.web.mvc.controller.RestController;
 import org.apache.commons.io.IOUtils;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
 /**
@@ -16,13 +14,12 @@ import javax.ws.rs.Path;
  * @since
  */
 @Path("/hello")
-public class HelloWorldController implements PageController {
+public class HelloWorldController implements RestController {
 
-    @GET
-    @POST
+
     @Path("/world")
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Throwable {
+    public Object execute(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 
         ServletInputStream inputStream = request.getInputStream();
 
@@ -32,7 +29,7 @@ public class HelloWorldController implements PageController {
         String requestBody = IOUtils.toString(inputStream, "UTF-8");
         System.out.println("request body: " + requestBody);
 
-        return "index.jsp";
+        return "hello world";
     }
 
 }

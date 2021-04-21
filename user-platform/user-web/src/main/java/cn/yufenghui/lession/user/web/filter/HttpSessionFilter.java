@@ -29,7 +29,8 @@ public class HttpSessionFilter implements Filter {
 
     private Cache<String, Map> cache;
 
-    private static final List<String> publicUrl = Arrays.asList("/", "/user/login", "/user/logout", "/gitee/login", "/login_form.jsp");
+    private static final List<String> publicUrl =
+            Arrays.asList("/", "/user/login", "/user/logout", "/gitee/login", "/login_form.jsp", "/hello/world");
 
 
     @Override

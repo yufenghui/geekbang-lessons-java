@@ -32,7 +32,10 @@ public class RestClientDemo {
     @Test
     public void testPost() {
 
-        Entity<String> entity = Entity.entity("{msg: 'Hello'}", MediaType.APPLICATION_JSON_TYPE);
+        User user = new User(1L, "yfh");
+
+
+        Entity<User> entity = Entity.entity(user, MediaType.APPLICATION_JSON_TYPE);
 
         Client client = ClientBuilder.newClient();
         Response response = client
@@ -45,5 +48,4 @@ public class RestClientDemo {
         System.out.println(content);
 
     }
-
 }
