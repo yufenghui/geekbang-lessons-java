@@ -62,17 +62,19 @@ public class HttpPostInvocation implements Invocation {
             connection.setRequestMethod(HttpMethod.POST);
             setRequestHeaders(connection);
 
-            MediaType mediaType = this.entity.getMediaType();
-            if(mediaType == MediaType.APPLICATION_JSON_TYPE) {
-                connection.setRequestProperty("Content-Type", MediaType.APPLICATION_JSON_TYPE.getType() + "/" + MediaType.APPLICATION_JSON_TYPE.getSubtype());
-            }
+            if(this.entity != null) {
+                MediaType mediaType = this.entity.getMediaType();
+                if (mediaType == MediaType.APPLICATION_JSON_TYPE) {
+                    connection.setRequestProperty("Content-Type", MediaType.APPLICATION_JSON_TYPE.getType() + "/" + MediaType.APPLICATION_JSON_TYPE.getSubtype());
+                }
 
-            connection.setDoOutput(true);
-            OutputStream outputStream = connection.getOutputStream();
+                connection.setDoOutput(true);
+                OutputStream outputStream = connection.getOutputStream();
 
-            if(mediaType == MediaType.APPLICATION_JSON_TYPE) {
-                String jsonBody = (String) this.entity.getEntity();
-                IOUtils.write(jsonBody, outputStream, Charset.forName("UTF-8"));
+                if (mediaType == MediaType.APPLICATION_JSON_TYPE) {
+                    String jsonBody = (String) this.entity.getEntity();
+                    IOUtils.write(jsonBody, outputStream, Charset.forName("UTF-8"));
+                }
             }
 
             int statusCode = connection.getResponseCode();

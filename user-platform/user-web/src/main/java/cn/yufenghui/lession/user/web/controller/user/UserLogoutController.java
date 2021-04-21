@@ -1,4 +1,4 @@
-package cn.yufenghui.lession.user.web.controller;
+package cn.yufenghui.lession.user.web.controller.user;
 
 import cn.yufenghui.lession.user.domain.User;
 import cn.yufenghui.lession.web.mvc.controller.RestController;
@@ -15,20 +15,19 @@ import javax.ws.rs.Path;
  * @since
  */
 @Path("/user")
-public class UserLoginController implements RestController {
+public class UserLogoutController implements RestController {
 
     @POST
-    @Path("/login")
+    @Path("/logout")
     @Override
     public Object execute(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 
         HttpSession session = request.getSession();
-        User user = new User();
-        user.setName("于冯辉");
+        User user = (User) session.getAttribute("user");
 
-        session.setAttribute("user", user);
+        session.removeAttribute("user");
 
-        return "登录成功: " + user;
+        return "注销成功: " + user;
     }
 
 }

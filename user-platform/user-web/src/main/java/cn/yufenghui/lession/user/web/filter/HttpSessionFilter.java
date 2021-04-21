@@ -29,7 +29,7 @@ public class HttpSessionFilter implements Filter {
 
     private Cache<String, Map> cache;
 
-    private static final List<String> publicUrl = Arrays.asList("/user/login", "/user/logout");
+    private static final List<String> publicUrl = Arrays.asList("/", "/user/login", "/user/logout", "/gitee/login", "/login_form.jsp");
 
 
     @Override
@@ -55,7 +55,8 @@ public class HttpSessionFilter implements Filter {
         String requestMappingPath = StringUtils.substringAfter(requestURI,
                 StringUtils.replace(servletContextPath, "//", "/"));
 
-        if(publicUrl.contains(requestMappingPath)) {
+
+        if(publicUrl.contains(requestMappingPath) || requestMappingPath.startsWith("/static")) {
             chain.doFilter(request, response);
             return;
         }

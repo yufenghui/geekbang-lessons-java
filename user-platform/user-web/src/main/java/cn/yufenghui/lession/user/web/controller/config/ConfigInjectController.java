@@ -1,4 +1,4 @@
-package cn.yufenghui.lession.user.web.controller;
+package cn.yufenghui.lession.user.web.controller.config;
 
 import cn.yufenghui.lession.web.mvc.controller.RestController;
 import org.eclipse.microprofile.config.inject.ConfigProperty;

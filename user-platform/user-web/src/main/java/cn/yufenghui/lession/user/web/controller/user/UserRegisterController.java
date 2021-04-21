@@ -1,4 +1,4 @@
-package cn.yufenghui.lession.user.web.controller;
+package cn.yufenghui.lession.user.web.controller.user;
 
 import cn.yufenghui.lession.context.ComponentContext;
 import cn.yufenghui.lession.user.domain.User;

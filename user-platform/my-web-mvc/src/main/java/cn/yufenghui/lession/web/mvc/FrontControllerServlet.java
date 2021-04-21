@@ -173,6 +173,17 @@ public class FrontControllerServlet extends HttpServlet {
             if (controller instanceof PageController) {
                 PageController pageController = PageController.class.cast(controller);
                 String viewPath = pageController.execute(request, response);
+
+                // 处理redirect相关逻辑
+                if(viewPath.startsWith("redirect:")) {
+                    String redirectUri = StringUtils.substringAfter(viewPath, "redirect:");
+
+                    response.setContentType("text/html;charset=UTF-8");
+                    response.sendRedirect(redirectUri);
+                    return;
+                }
+
+
                 if (!viewPath.startsWith("/")) {
                     viewPath = "/" + viewPath;
                 }

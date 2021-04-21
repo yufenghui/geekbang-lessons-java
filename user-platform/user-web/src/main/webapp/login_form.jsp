@@ -17,6 +17,13 @@
             }
         }
     </style>
+    <script>
+
+        function gitee_login() {
+            window.location.href = "/gitee/login"
+        }
+
+    </script>
 </head>
 <body>
 <div class="container">
@@ -33,9 +40,14 @@
                 Remember me
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign
-            in
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+            Sign in
         </button>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="gitee_login()">
+            Gitee登录
+        </button>
+
         <p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>
     </form>
 </div>

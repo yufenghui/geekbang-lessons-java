@@ -6,6 +6,7 @@
 <body>
 <div class="container-lg">
     <!-- Content here -->
-    Hello,World 2021
+    Hello, ${user}
+
 </div>
 </body>
