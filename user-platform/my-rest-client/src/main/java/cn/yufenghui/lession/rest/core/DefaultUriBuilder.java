@@ -242,6 +242,9 @@ public class DefaultUriBuilder extends UriBuilder {
         doResolveTemplates(values, encoded);
         final URI uri;
         if (resolvedTemplate != null) {
+            if (this.queryParams.size() > 0) {
+                resolvedTemplate += toURI();
+            }
             uri = URI.create(resolvedTemplate);
         } else {
             uri = toURI();

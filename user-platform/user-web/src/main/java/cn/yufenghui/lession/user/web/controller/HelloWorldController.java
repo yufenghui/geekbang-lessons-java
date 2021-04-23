@@ -21,6 +21,9 @@ public class HelloWorldController implements RestController {
     @Override
     public Object execute(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 
+        String name = request.getParameter("name");
+        String message = request.getParameter("message");
+
         ServletInputStream inputStream = request.getInputStream();
 
         String contentType = request.getHeader("Content-Type");
@@ -29,7 +32,7 @@ public class HelloWorldController implements RestController {
         String requestBody = IOUtils.toString(inputStream, "UTF-8");
         System.out.println("request body: " + requestBody);
 
-        return "hello world";
+        return String.format("[%s]: %s", name, message);
     }
 
 }
