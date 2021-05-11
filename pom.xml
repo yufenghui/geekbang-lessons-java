@@ -11,6 +11,7 @@
 
     <modules>
         <module>user-platform</module>
+        <module>my-mybatis-spring</module>
     </modules>
 
     <properties>
@@ -26,7 +27,57 @@
         <maven.flatten.version>1.2.5</maven.flatten.version>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+
+        <!-- Spring 依赖 -->
+        <spring.boot.version>2.2.9.RELEASE</spring.boot.version>
+
+        <!-- 第三方开源依赖版本-->
+        <mybatis.version>3.5.7</mybatis.version>
+        <mybatis-spring.version>2.0.6</mybatis-spring.version>
+
+        <!-- Testing 版本 -->
+        <junit.version>4.13</junit.version>
+
     </properties>
+
+    <dependencyManagement>
+
+        <dependencies>
+
+            <!-- Spring Boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- MyBatis -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring.version}</version>
+            </dependency>
+
+
+            <!-- JUnit -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+        </dependencies>
+
+    </dependencyManagement>
 
     <build>
         <pluginManagement>
