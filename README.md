@@ -43,7 +43,28 @@ mvn tomcat7:run
 
 ### 实现
 
-* 暂未实现
+1. 只允许定义一个 `WebSecurityConfigurerAdapter`
+2. 提供一个接口名字叫做 `com.acme.WebSecurityConfigurer` (与SpringSecurity相同)
+3. 将唯一的 `WebSecurityConfigurerAdapter` 实现组合模式，组合的对象就是 `com.acme.WebSecurityConfigurer`，
+   允许定义多个 `com.acme.WebSecurityConfigurer` Bean，在 `WebSecurityConfigurerAdapter`中迭代 `com.acme.WebSecurityConfigurer`
+   Bean， 通过@Order 和 Ordered接口控制优先级。
+4. 如果出现多个 `WebSecurityConfigurerAdapter`， 通过异常会警告来提示
+
+> 如果是Spring Security 3.0版本，对应Spring Boot 1.x版本可以通过异常来提示。高如果是版本，只能通过警告来提醒。
+
+```java
+@Configuration
+public class CompositeWebSecurityConfigrer extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private List<MyWebSecurityConfigurer> webSecurityConfigurers;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        this.webSecurityConfigurers.forEach(c -> c.configure(http));
+    }
+}
+```
 
 ## 第七周作业
 
