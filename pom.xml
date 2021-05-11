@@ -12,6 +12,7 @@
     <modules>
         <module>user-platform</module>
         <module>my-mybatis-spring</module>
+        <module>my-spring-security-customizer</module>
     </modules>
 
     <properties>
