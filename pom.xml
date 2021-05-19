@@ -13,6 +13,7 @@
         <module>user-platform</module>
         <module>my-mybatis-spring</module>
         <module>my-spring-security-customizer</module>
+        <module>consistent-hashing</module>
     </modules>
 
     <properties>
