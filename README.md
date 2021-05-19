@@ -13,6 +13,18 @@ mvn tomcat7:run
 
 ------
 
+## 第十一周作业
+
+> 通过 Java 实现两种 (以及) 更多的一致性 Hash 算法 (可选) 实现服务节点动态更新
+
+> org.apache.dubbo.rpc.cluster.loadbalance.ConsistentHas hLoadBalance
+
+### 实现
+
+* `consistent-hashing` 模块增加一致性哈希的实现
+* 将节点和虚拟阶段初始化到Hash环上
+* 将请求路由到节点上，新增和删除节点，观察请求路由节点的变化情况
+
 ## 第十周作业
 
 > 完善 @org.geektimes.projects.user.mybatis.annotation.Enable MyBatis 实现，尽可能多地注入 org.mybatis.spring.SqlSessionFactoryBean 中依赖的组件
