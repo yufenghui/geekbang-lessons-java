@@ -13,6 +13,17 @@ mvn tomcat7:run
 
 ------
 
+## 第十二周作业
+
+> 将上次 MyBatis@Enable 模块驱动，封装成 SpringBoot Starter 方式
+
+> 参考: MyBatis Spring Project 里面会有 Spring Boot 实现
+
+### 实现
+
+* 本来想参考Mybatis官方的实现，不使用`@EnableMybatis` 模块驱动，后来想想还是想复用spring的实现。
+* 没有想到比较好的在注解中集成外部化配置属性的方法，暂时使用`${placeholder}`的方式。
+
 ## 第十一周作业
 
 > 通过 Java 实现两种 (以及) 更多的一致性 Hash 算法 (可选) 实现服务节点动态更新
