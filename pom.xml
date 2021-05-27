@@ -11,9 +11,9 @@
 
     <modules>
         <module>user-platform</module>
-        <module>my-mybatis-spring</module>
         <module>my-spring-security-customizer</module>
         <module>consistent-hashing</module>
+        <module>my-mybatis</module>
     </modules>
 
     <properties>
@@ -31,7 +31,7 @@
         <maven.compiler.target>8</maven.compiler.target>
 
         <!-- Spring 依赖 -->
-        <spring.boot.version>2.2.9.RELEASE</spring.boot.version>
+        <spring.boot.version>2.4.5</spring.boot.version>
 
         <!-- 第三方开源依赖版本-->
         <mybatis.version>3.5.7</mybatis.version>

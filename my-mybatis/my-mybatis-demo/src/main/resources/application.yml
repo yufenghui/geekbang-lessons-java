@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: my-mybatis-demo
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/geekbang-lessons?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    hikari:
+      maximum-pool-size: 5
+
+
+my-mybatis:
+  basePackage: cn.yufenghui.lession.mybatis.mapper
+  configLocation: classpath:/mybatis-config.xml
+  mapperLocation: classpath*:/mapper/**/*.xml
