@@ -1,0 +1,17 @@
+server:
+  port: 0
+
+# Spring 应用名称
+spring:
+  application:
+    name: my-config-client
+  # 配置 Spring Cloud Config Server
+  ## 配置直连模式
+  config:
+    import: 'optional:configserver:http://127.0.0.1:8888'
+  ## 配置服务发现模式
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        serviceId: config-server

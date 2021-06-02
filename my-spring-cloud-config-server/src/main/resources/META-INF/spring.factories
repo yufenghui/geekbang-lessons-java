@@ -1,0 +1,3 @@
+# Bootstrap components
+org.springframework.cloud.bootstrap.BootstrapConfiguration=\
+cn.yufenghui.lession.spring.cloud.config.server.config.FileSystemConfigBootstrapConfiguration

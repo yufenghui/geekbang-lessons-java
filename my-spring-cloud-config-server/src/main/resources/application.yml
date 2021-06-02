@@ -1,0 +1,18 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: my-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://${user.dir}/my-spring-cloud-config-server/src/main/resources/config-repo
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
