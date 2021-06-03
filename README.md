@@ -56,7 +56,7 @@ public CompositeEnvironmentRepository compositeEnvironmentRepository() {
             properties.isFailOnCompositeError());
 }
 ```
-* 最终呈现的效果为，在Client端也能正确的注入基于`FileSystem`实现的配置。
+* 在Client端也能正确的注入基于`FileSystem`实现的配置，最终呈现的效果为：
 ```json
 {
   "name": "my-config-client",
