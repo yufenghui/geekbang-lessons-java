@@ -13,6 +13,87 @@ mvn tomcat7:run
 
 ------
 
+## 第十三周作业
+
+> 基于文件系统为 Spring Cloud 提供 PropertySourceLocator 实现
+
+> 配置文件命名规则 (META-INF/config/default.properties 或者 META-INF/config/default.yaml)
+
+### 实现
+
+* 增加 `FileSystemPropertySourceLocator` 在env端点中能看到新增成功的 `bootstrapProperties-fileSystemPropertySource`
+* 增加 `FileSystemEnvironmentRepository` 适配 `Config Server` 的实现，发现会覆盖Git的 `EnvironmentRepository` 实现，原因如下:
+
+```java
+
+@Configuration(proxyBeanMethods = false)
+@ConditionalOnMissingBean(value = EnvironmentRepository.class,
+        search = SearchStrategy.CURRENT)
+class DefaultRepositoryConfiguration {
+
+    @Bean
+    public MultipleJGitEnvironmentRepository defaultEnvironmentRepository(
+            MultipleJGitEnvironmentRepositoryFactory gitEnvironmentRepositoryFactory,
+            MultipleJGitEnvironmentProperties environmentProperties) throws Exception {
+        return gitEnvironmentRepositoryFactory.build(environmentProperties);
+    }
+
+}
+```
+
+* `MultipleJGitEnvironmentRepository` 为默认实现，在没有 `EnvironmentRepository` 的实现时才会激活。但我的需求是想要合并，所以手动定义，代码如下:
+
+```java
+@ConditionalOnProperty(value = "spring.cloud.config.server.git.uri")
+@Bean
+public MultipleJGitEnvironmentRepository defaultEnvironmentRepository(
+        MultipleJGitEnvironmentRepositoryFactory gitEnvironmentRepositoryFactory,
+        MultipleJGitEnvironmentProperties environmentProperties)throws Exception{
+        return gitEnvironmentRepositoryFactory.build(environmentProperties);
+        }
+```
+
+* 如此实现了 `EnvironmentRepository` 在`CompositeConfiguration`中的合并。`CompositeEnvironmentRepository` 为`Primary`的实现。代码如下：
+
+```java
+@Bean
+@Primary
+@ConditionalOnMissingBean(SearchPathLocator.class)
+public CompositeEnvironmentRepository compositeEnvironmentRepository(){
+        return new CompositeEnvironmentRepository(this.environmentRepos,
+        properties.isFailOnCompositeError());
+        }
+```
+
+* 最终呈现的效果为，在Client端也能正确的注入基于`FileSystem`实现的配置。
+
+```json
+{
+  "name": "my-config-client",
+  "profiles": [
+    "default"
+  ],
+  "label": null,
+  "version": null,
+  "state": null,
+  "propertySources": [
+    {
+      "name": "fileSystemPropertySource",
+      "source": {
+        "my.city": "xian"
+      }
+    },
+    {
+      "name": "file://D:\\study\\geekbang-lessons-java/my-spring-cloud-config-server/src/main/resources/config-repo/my-config-client.properties",
+      "source": {
+        "my.name": "yfh",
+        "my.age": "32"
+      }
+    }
+  ]
+}
+```
+
 ## 第十二周作业
 
 > 将上次 MyBatis@Enable 模块驱动，封装成 SpringBoot Starter 方式
