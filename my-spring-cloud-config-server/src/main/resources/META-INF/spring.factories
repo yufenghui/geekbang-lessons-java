@@ -1,3 +1,6 @@
+# Auto-Configuration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  cn.yufenghui.lession.spring.cloud.config.server.config.FileSystemConfigAutoConfiguration
 # Bootstrap components
 org.springframework.cloud.bootstrap.BootstrapConfiguration=\
-cn.yufenghui.lession.spring.cloud.config.server.config.FileSystemConfigBootstrapConfiguration
+  cn.yufenghui.lession.spring.cloud.config.server.config.FileSystemConfigBootstrapConfiguration
